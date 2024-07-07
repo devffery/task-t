@@ -58,7 +58,28 @@ class RegisterSerializer(serializers.ModelSerializer):
             )
             organisation.users.add(user)
         return user
+        
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(style={'input_type': 'password'})
 
+    def validate(self, data):
+        email = data.get('email')
+        password = data.get('password')
+
+        if email and password:
+            user = authenticate(request=self.context.get('request'), email=email, password=password)
+
+            if not user:
+                msg = 'Unable to log in with provided credentials.'
+                raise serializers.ValidationError(msg)
+        else:
+            msg = 'Must include "email" and "password".'
+            raise serializers.ValidationError(msg)
+
+        data['user'] = user
+        return data
+        
 class OrganisationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organisation
