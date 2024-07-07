@@ -16,9 +16,9 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractUser):
     userId = models.CharField(max_length=50, unique=True, null=False, default=uuid.uuid4 )
-    firstName = models.CharField(max_length=50, null=False)
-    lastName = models.CharField(max_length=50, null=False)
-    email = models.EmailField(max_length=50, unique=True, null=False)
+    firstName = models.CharField(max_length=250, null=False)
+    lastName = models.CharField(max_length=250, null=False)
+    email = models.EmailField(max_length=250, unique=True, null=False)
     phone = models.CharField(max_length=20)
 
     USERNAME_FIELD = 'email'
@@ -31,7 +31,7 @@ class CustomUser(AbstractUser):
 
 class Organisation(models.Model):
     orgId = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    name = models.CharField(max_length=255, null=False)
+    name = models.CharField(max_length=250, null=False)
     description = models.TextField(null=True)
     users = models.ManyToManyField(CustomUser, related_name='organisations')
 
