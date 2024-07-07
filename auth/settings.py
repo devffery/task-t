@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 from decouple import config
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -101,17 +102,10 @@ WSGI_APPLICATION = 'auth.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql', 
-        'NAME': 'user_auth',                     
-        'USER': 'postgres',                    
-        'PASSWORD': 'abayomi28',             
-        'HOST': 'localhost',                
-        'PORT': '5432',                     
-    }
-}
 
+DATABASES = {
+    'default': dj_database_url.parse('postgresql://devffery:kkRiVADSrj3oup92x6e5E2sxXwV5oUs3@dpg-cq5bhndds78s73cv9dj0-a/auth_tg7m')
+}
 
 
 # Password validation
