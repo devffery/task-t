@@ -2,7 +2,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import *
-from .models import CustomUser, Organisation
+from .models import *
 from django.contrib.auth import login, logout
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework import permissions
