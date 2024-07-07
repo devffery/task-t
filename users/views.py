@@ -73,48 +73,43 @@ class RegisterView(generics.CreateAPIView):
 
 # User Login View
 class LoginView(generics.GenericAPIView):
-    serializer_class = RegisterSerializer
+    serializer_class = LoginSerializer
     permission_classes = [permissions.AllowAny]
+
     def post(self, request):
+        serializer = self.get_serializer(data=request.data)
         try:
-            email = request.data['email']
-            password = request.data['password']
-
-            user = CustomUser.objects.filter(email=email).first()
-
-            if user is None:
-                raise AuthenticationFailed("User not found")
-
-            if not user.check_password(password):
-                raise AuthenticationFailed("password is Incorrect")
-
+            serializer.is_valid(raise_exception=True)
+            user = serializer.validated_data['user']
             refresh = RefreshToken.for_user(user)
-            access_token = str(refresh.access_token)
-            login(request, user)
+
+            login(request, user)  # Login the user
+
             return Response({
                 "status": "success",
                 "message": "Login successful",
                 "data": {
-                    "accessToken": access_token,
-                    "user": {
-                        "userId": user.userId,
-                        "firstName": user.firstName,
-                        "lastName": user.lastName,
-                        "email": user.email,
-                        "phone": user.phone,
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                    'user': {
+                        'userId': user.userId,
+                        'firstName': user.firstName,
+                        'lastName': user.lastName,
+                        'email': user.email,
+                        'phone': user.phone,
                     }
                 }
             }, status=status.HTTP_200_OK)
 
-        except serializers.ValidationError as e:
-            return handle_validation_error(e)
-
         except AuthenticationFailed as e:
             return handle_authentication_failed(e)
 
+        except serializers.ValidationError as e:
+            return handle_validation_error(e)
+
         except Exception as e:
             return handle_generic_error(e, "Authentication failed")
-
+            
 # API view to fetch user details by userId
 class GetUserView(generics.GenericAPIView):
     serializer_class = RegisterSerializer
