@@ -4,6 +4,7 @@ import uuid
 
 
 urlpatterns = [
+    path("", welcome_view, name="welcome"),
     path("auth/register", RegisterView.as_view(), name="register"),
     path("auth/login", LoginView.as_view(), name="login"),
     path("api/users/<uuid:userId>", GetUserView.as_view(), name= "get_user"),
