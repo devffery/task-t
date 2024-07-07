@@ -15,9 +15,7 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    # Specify the port here, adjust as needed
-    port = int(os.environ.get("PORT", 8000))
-    execute_from_command_line(sys.argv, addrport=f"0.0.0.0:{port}")
+    execute_from_command_line(sys.argv)
 
 
 if __name__ == '__main__':
