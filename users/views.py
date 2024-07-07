@@ -8,8 +8,10 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework import permissions
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 
-
+def welcome_view(request):
+    return HttpResponse("Welcome to the Authentication & organization API for hng!")
 
 #Functions to handle errors
 def handle_validation_error(e):
