@@ -28,7 +28,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','task-t.onrender.com', 'task-t.vercel.app']
+ALLOWED_HOSTS = ['0.0.0.0','.onrender.com', '.vercel.app', '127.0.0.1']
 
 
 # Application definition
