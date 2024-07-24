@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'auth.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.parse('postgresql://devffery:kkRiVADSrj3oup92x6e5E2sxXwV5oUs3@dpg-cq5bhndds78s73cv9dj0-a/auth_tg7m')
+    'default': dj_database_url.parse('')
 }
 
 
